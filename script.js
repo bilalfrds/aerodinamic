@@ -13,11 +13,12 @@ async function ensure3DEngineReady() {
     if (!window.THREE) {
         await loadScript('https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js');
     }
-    const loaders = [
-        'https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js',
-        'https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/OBJLoader.js',
-        'https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/STLLoader.js'
-    ];
+   const loaders = [
+     'https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/DRACOLoader.js',
+     'https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js',
+     'https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/OBJLoader.js',
+     'https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/STLLoader.js'
+ ];
     for (const url of loaders) {
         try {
             await loadScript(url);
@@ -616,6 +617,16 @@ async function initAirShaper3DFileStudio() {
         realignActiveVehicle();
     }
 
+   function createConfiguredGLTFLoader() {
+        const loader = new THREE.GLTFLoader();
+        if (THREE.DRACOLoader) {
+            const dracoLoader = new THREE.DRACOLoader();
+            dracoLoader.setDecoderPath('https://www.gstatic.com/draco/versioned/decoders/1.4.1/');
+            loader.setDRACOLoader(dracoLoader);
+        }
+        return loader;
+    }
+
     function loadVehicleFromUrl(vehicleKey) {
         const spec = vehicleDatabase[vehicleKey] || vehicleDatabase.motogp;
         customUserRotationY = 0;
@@ -623,7 +634,7 @@ async function initAirShaper3DFileStudio() {
 
         if (spec.modelUrl && spec.modelUrl.trim() !== '' && THREE.GLTFLoader) {
             modelStatusTag.textContent = `MEMUAT FILE 3D: ${spec.name}...`;
-            const loader = new THREE.GLTFLoader();
+            const loader = createConfiguredGLTFLoader();
             loader.load(
                 spec.modelUrl,
                 (gltf) => {
@@ -650,7 +661,7 @@ async function initAirShaper3DFileStudio() {
         modelStatusTag.textContent = `MEMPROSES FILE 3D: ${file.name.toUpperCase()}...`;
 
         if ((ext === 'glb' || ext === 'gltf') && THREE.GLTFLoader) {
-            new THREE.GLTFLoader().load(blobUrl, (gltf) => {
+           createConfiguredGLTFLoader().load(blobUrl, (gltf) => {
                 applyAirShaperShaderAndNormalize(gltf.scene, spec, file.name.toUpperCase());
                 URL.revokeObjectURL(blobUrl);
             });
