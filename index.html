@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AERO-CFD 3D STUDIO // Wind Tunnel & Surface Pressure Simulator</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        :root {
+            --bg-void: #050608;
+            --bg-panel: #0b0d12;
+            --bg-elevated: #11141c;
+            --border-grid: rgba(255, 255, 255, 0.12);
+            --accent-volt: #d2ff00;
+            --text-main: #f4f4f2;
+            --text-muted: #8a92a6;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-void);
+            color: var(--text-main);
+            font-family: 'Space Grotesk', sans-serif;
+            line-height: 1.5;
+            min-height: 100vh;
+        }
+
+        .mono {
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* HEADER TELEMETRI ATAS */
+        .top-telemetry-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            padding: 0.9rem 1.5rem;
+            background: var(--bg-panel);
+            border-bottom: 1px solid var(--border-grid);
+        }
+
+        .brand-title {
+            display: flex;
+            align-items: center;
+            gap: 0.65rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            font-weight: 800;
+            letter-spacing: 0.06em;
+        }
+
+        .brand-dot {
+            width: 9px;
+            height: 9px;
+            background: var(--accent-volt);
+            box-shadow: 0 0 10px var(--accent-volt);
+        }
+
+        .system-tags {
+            display: flex;
+            align-items: center;
+            gap: 0.65rem;
+            flex-wrap: wrap;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.72rem;
+            color: var(--text-muted);
+        }
+
+        .drs-status-pill {
+            padding: 0.28rem 0.65rem;
+            background: rgba(210, 255, 0, 0.08);
+            border: 1px solid rgba(210, 255, 0, 0.45);
+            color: var(--accent-volt);
+            font-weight: 700;
+            letter-spacing: 0.04em;
+        }
+
+        /* WADAH UTAMA SIMULATOR */
+        .studio-wrapper {
+            max-width: 1240px;
+            margin: 1.25rem auto;
+            padding: 0 1rem 2.5rem;
+        }
+
+        .simulator-shell {
+            background: var(--bg-panel);
+            border: 1px solid var(--border-grid);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.65);
+        }
+
+        /* SUB-HEADER VIEWPORT 3D */
+        .viewport-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            padding: 0.65rem 1rem;
+            background: var(--bg-elevated);
+            border-bottom: 1px solid var(--border-grid);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.72rem;
+            color: var(--text-muted);
+        }
+
+        .viewport-header strong {
+            color: var(--text-main);
+        }
+
+        .canvas-box {
+            position: relative;
+            width: 100%;
+            min-height: 460px;
+            background: #050608;
+            overflow: hidden;
+        }
+
+        #aero3dContainer {
+            width: 100%;
+            height: 460px;
+        }
+
+        /* PANEL KONTROL 3 KOLOM */
+        .controls-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            border-top: 1px solid var(--border-grid);
+            background: var(--bg-panel);
+        }
+
+        .control-cell {
+            padding: 1.15rem 1.25rem;
+            border-right: 1px solid var(--border-grid);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 0.55rem;
+        }
+
+        .control-cell:last-child {
+            border-right: none;
+        }
+
+        .control-cell label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.74rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            color: var(--text-muted);
+            text-transform: uppercase;
+        }
+
+        .control-cell label span {
+            color: var(--accent-volt);
+        }
+
+        #carSelect {
+            width: 100%;
+            padding: 0.62rem 0.75rem;
+            background: #07080b;
+            color: var(--text-main);
+            border: 1px solid rgba(255, 255, 255, 0.24);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.76rem;
+            font-weight: 600;
+            cursor: pointer;
+            outline: none;
+        }
+
+        #carSelect:focus {
+            border-color: var(--accent-volt);
+        }
+
+        #speedRange {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 100%;
+            height: 6px;
+            background: #222632;
+            outline: none;
+            margin-top: 0.45rem;
+            cursor: pointer;
+        }
+
+        #speedRange::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: var(--accent-volt);
+            cursor: pointer;
+            box-shadow: 0 0 10px rgba(210, 255, 0, 0.75);
+        }
+
+        #speedRange::-moz-range-thumb {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: var(--accent-volt);
+            border: none;
+            cursor: pointer;
+        }
+
+        .speed-scale-hints {
+            display: flex;
+            justify-content: space-between;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.66rem;
+            color: var(--text-muted);
+        }
+
+        #drsToggle {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            background: transparent;
+            color: var(--accent-volt);
+            border: 1px solid var(--accent-volt);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            cursor: pointer;
+            transition: all 0.18s ease;
+        }
+
+        #drsToggle:hover,
+        #drsToggle.active {
+            background: var(--accent-volt);
+            color: #050608;
+            box-shadow: 0 0 18px rgba(210, 255, 0, 0.35);
+        }
+
+        /* PANEL DATA TELEMETRI 4 KOLOM */
+        .telemetry-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            border-top: 1px solid var(--border-grid);
+            background: #08090d;
+        }
+
+        .metric-card {
+            padding: 1.15rem 1.25rem;
+            border-right: 1px solid var(--border-grid);
+        }
+
+        .metric-card:last-child {
+            border-right: none;
+        }
+
+        .metric-title {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.70rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            letter-spacing: 0.05em;
+            margin-bottom: 0.35rem;
+        }
+
+        .metric-value {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.85rem;
+            font-weight: 700;
+            color: var(--text-main);
+            letter-spacing: -0.02em;
+        }
+
+        .metric-value.flow-status {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.95rem;
+            padding-top: 0.45rem;
+        }
+
+        /* CATATAN FISIKA AERODINAMIKA */
+        .aero-notes {
+            margin-top: 1rem;
+            padding: 0.95rem 1.25rem;
+            background: var(--bg-panel);
+            border: 1px solid var(--border-grid);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.72rem;
+            color: var(--text-muted);
+        }
+
+        .aero-notes code {
+            color: var(--accent-volt);
+            background: rgba(210, 255, 0, 0.08);
+            padding: 0.15rem 0.4rem;
+        }
+
+        @media (max-width: 900px) {
+            .controls-grid {
+                grid-template-columns: 1fr;
+            }
+            .control-cell {
+                border-right: none;
+                border-bottom: 1px solid var(--border-grid);
+            }
+            .telemetry-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .metric-card:nth-child(2) {
+                border-right: none;
+            }
+            .metric-card:nth-child(1),
+            .metric-card:nth-child(2) {
+                border-bottom: 1px solid var(--border-grid);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="top-telemetry-bar">
+        <div class="brand-title">
+            <span class="brand-dot"></span>
+            <span>AERO-CFD 3D STUDIO // VIRTUAL WIND TUNNEL</span>
+        </div>
+        <div class="system-tags">
+            <span>ENGINE: THREE.JS WEBGL + FBM VOLUMETRIC SMOKE</span>
+            <span id="drsBadge" class="drs-status-pill">DRS: STANDBY</span>
+        </div>
+    </header>
+
+    <main class="studio-wrapper" id="kalkulator">
+        <section class="simulator-shell">
+            <div class="viewport-header">
+                <div><strong>VIEWPORT 3D:</strong> AIRSHAPER Cps SURFACE PRESSURE + SMOKE RAKE</div>
+                <div>KONTROL: <strong>DRAG</strong> ORBIT 360° • <strong>SCROLL</strong> ZOOM • <strong>DBL-CLICK</strong> RESET</div>
+            </div>
+
+            <!-- WADAH UTAMA RENDER 3D (DITANGANI OLEH script.js) -->
+            <div class="canvas-box">
+                <div id="aero3dContainer"></div>
+            </div>
+
+            <!-- PANEL KONTROL 3 KOLOM -->
+            <div class="controls-grid">
+                <div class="control-cell">
+                    <label for="carSelect">01 // PILIH 10 KENDARAAN / UPLOAD FILE 3D</label>
+                    <select id="carSelect"></select>
+                </div>
+
+                <div class="control-cell">
+                    <label for="speedRange">02 // KECEPATAN ANGIN: <span id="speedValue">180 KM/H</span></label>
+                    <input type="range" id="speedRange" min="40" max="380" value="180" step="1">
+                    <div class="speed-scale-hints">
+                        <span>40 KM/H</span>
+                        <span>210 KM/H</span>
+                        <span>380 KM/H</span>
+                    </div>
+                </div>
+
+                <div class="control-cell">
+                    <label for="drsToggle">03 // AKTUATOR SAYAP BELAKANG 3D</label>
+                    <button type="button" id="drsToggle">AKTIFKAN DRS (-15% DRAG)</button>
+                </div>
+            </div>
+
+            <!-- PANEL TELEMETRI REAL-TIME 4 KOLOM -->
+            <div class="telemetry-grid">
+                <div class="metric-card">
+                    <div class="metric-title">ACTIVE DRAG COEFF (Cd)</div>
+                    <div class="metric-value" id="cdDisplay">0.509</div>
+                </div>
+
+                <div class="metric-card">
+                    <div class="metric-title">AERODYNAMIC DRAG (Fd)</div>
+                    <div class="metric-value" id="dragDisplay">452 N</div>
+                </div>
+
+                <div class="metric-card">
+                    <div class="metric-title">DRAG POWER LOSS</div>
+                    <div class="metric-value" id="powerDisplay">30.3 HP</div>
+                </div>
+
+                <div class="metric-card">
+                    <div class="metric-title">AIRFLOW REGIME</div>
+                    <div class="metric-value flow-status" id="flowDisplay">Cl: -0.18 // ACTIVE FLOW</div>
+                </div>
+            </div>
+        </section>
+
+        <footer class="aero-notes">
+            <span>PERSAMAAN GAYA HAMBAT: <code>Fd = ½ · ρ · v² · Cd · A</code> (ρ = 1.225 kg/m³)</span>
+            <span>FORMAT MESH DIDUKUNG: <code>.GLB</code> <code>.GLTF</code> <code>.OBJ</code> <code>.STL</code></span>
+        </footer>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
