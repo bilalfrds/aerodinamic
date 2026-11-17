@@ -52,7 +52,7 @@ async function initAirShaper3DFileStudio() {
         },
         daily_car: {
             name: '03. MOBIL BIASA (SEDAN / HATCHBACK)',
-            modelUrl: './porsche_gt3_rs.glb',
+            modelUrl: './generic_toyama_xr_sedan.glb',
             targetSize: 4.85, defaultRotY: -Math.PI / 2,
             cd: 0.285, cl: 0.06, area: 2.22, tailX: 2.40, airborne: false
         },
