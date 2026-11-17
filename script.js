@@ -40,7 +40,7 @@ async function initAirShaper3DFileStudio() {
     const vehicleDatabase = {
         motogp: {
             name: '01. MOTOR BALAP MOTOGP + PEMBALAP',
-            modelUrl: '',
+            modelUrl: './ducativ4r.glb',
             targetSize: 3.35, defaultRotY: -Math.PI / 2,
             cd: 0.509, cl: -0.18, area: 0.58, tailX: 1.65, airborne: false
         },
