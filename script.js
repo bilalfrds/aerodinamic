@@ -52,13 +52,13 @@ async function initAirShaper3DFileStudio() {
         },
         daily_car: {
             name: '03. MOBIL BIASA (SEDAN / HATCHBACK)',
-            modelUrl: '',
+            modelUrl: './porsche_gt3_rs.glb',
             targetSize: 4.85, defaultRotY: -Math.PI / 2,
             cd: 0.285, cl: 0.06, area: 2.22, tailX: 2.40, airborne: false
         },
        gt3_race: {
          name: '04. MOBIL BALAP GT3 / LE MANS PROTOTYPE',
-         modelUrl: './porsche_963_hypercar-v1.glb',
+         modelUrl: './porsche_gt3_rs.glb',
          targetSize: 4.95, defaultRotY: -Math.PI / 2,
          cd: 0.390, cl: -0.88, area: 2.05, tailX: 2.45, airborne: false
      },
@@ -82,7 +82,7 @@ async function initAirShaper3DFileStudio() {
         },
         hypercar: {
             name: '08. HYPERCAR STREAMLINE',
-            modelUrl: '',
+            modelUrl: './porsche_963_hypercar-v1.glb',
             targetSize: 4.90, defaultRotY: -Math.PI / 2,
             cd: 0.238, cl: -0.68, area: 1.88, tailX: 2.42, airborne: false
         },
