@@ -56,12 +56,12 @@ async function initAirShaper3DFileStudio() {
             targetSize: 4.85, defaultRotY: -Math.PI / 2,
             cd: 0.285, cl: 0.06, area: 2.22, tailX: 2.40, airborne: false
         },
-        gt3_race: {
-            name: '04. MOBIL BALAP GT3 / LE MANS PROTOTYPE',
-            modelUrl: '',
-            targetSize: 4.95, defaultRotY: -Math.PI / 2,
-            cd: 0.390, cl: -0.88, area: 2.05, tailX: 2.45, airborne: false
-        },
+       gt3_race: {
+         name: '04. MOBIL BALAP GT3 / LE MANS PROTOTYPE',
+         modelUrl: './porsche_963_hypercar-v1.glb',
+         targetSize: 4.95, defaultRotY: -Math.PI / 2,
+         cd: 0.390, cl: -0.88, area: 2.05, tailX: 2.45, airborne: false
+     },
         f1_car: {
             name: '05. MOBIL FORMULA 1',
             modelUrl: '',
