@@ -1,0 +1,418 @@
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=JetBrains+Mono:wght@400;700&family=Space+Grotesk:wght@400;500;700&display=swap');
+
+/* 1. PALET WARNA KHAS MOTORSPORT / LANDO NORRIS */
+:root {
+    --bg-black: #0a0a0a;
+    --bg-panel: #111111;
+    --volt: #d2ff00;          /* Warna ikonik Neon Volt */
+    --white: #f4f4f2;
+    --gray: #888888;
+    --line: rgba(255, 255, 255, 0.18);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg-black);
+    color: var(--white);
+    font-family: 'Space Grotesk', sans-serif;
+    line-height: 1.5;
+}
+
+.volt-text {
+    color: var(--volt);
+}
+
+/* 2. NAVBAR TEGAS DENGAN GARIS PEMBATAS */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.2rem 4%;
+    border-bottom: 1px solid var(--line);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85rem;
+}
+
+.logo {
+    font-weight: 700;
+    font-size: 1.1rem;
+    letter-spacing: 2px;
+}
+
+.logo span {
+    color: var(--volt);
+}
+
+.status-tag {
+    color: var(--volt);
+    font-size: 0.75rem;
+}
+
+.navbar nav a {
+    color: var(--white);
+    text-decoration: none;
+    margin-left: 1.8rem;
+    transition: color 0.2s;
+}
+
+.navbar nav a:hover {
+    color: var(--volt);
+}
+
+/* 3. HERO EDITORIAL RAKSASA */
+.hero {
+    padding: 4rem 4% 3.5rem;
+    border-bottom: 1px solid var(--line);
+}
+
+.eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    color: var(--volt);
+    letter-spacing: 1.5px;
+    margin-bottom: 1rem;
+}
+
+.mega-title {
+    font-family: 'Anton', sans-serif;
+    font-size: clamp(3.5rem, 9vw, 7.5rem);
+    line-height: 0.95;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 2.5rem;
+}
+
+.hero-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--line);
+}
+
+.hero-bottom p {
+    max-width: 520px;
+    color: var(--gray);
+    font-size: 1rem;
+}
+
+.btn-volt {
+    display: inline-block;
+    background-color: var(--volt);
+    color: var(--bg-black);
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 700;
+    font-size: 0.85rem;
+    text-decoration: none;
+    padding: 0.9rem 1.6rem;
+    border: 1px solid var(--volt);
+    transition: all 0.2s ease;
+}
+
+.btn-volt:hover {
+    background-color: transparent;
+    color: var(--volt);
+}
+
+/* 4. SECTION & SWISS GRID CARDS */
+.section {
+    padding: 4rem 4%;
+    border-bottom: 1px solid var(--line);
+}
+
+.section-header {
+    margin-bottom: 2rem;
+}
+
+.mono-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    color: var(--volt);
+    display: block;
+    margin-bottom: 0.3rem;
+}
+
+.section-header h2 {
+    font-family: 'Anton', sans-serif;
+    font-size: 2.5rem;
+    letter-spacing: 1px;
+}
+
+.bento-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+    gap: 1px;
+    background-color: var(--line);
+    border: 1px solid var(--line);
+}
+
+.aero-card {
+    background-color: var(--bg-black);
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: background-color 0.25s ease, color 0.25s ease;
+    cursor: pointer;
+}
+
+.aero-card:hover {
+    background-color: var(--volt);
+    color: var(--bg-black);
+}
+
+.card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    margin-bottom: 2.5rem;
+    padding-bottom: 0.8rem;
+    border-bottom: 1px solid var(--line);
+}
+
+.aero-card:hover .card-top {
+    border-bottom-color: rgba(10, 10, 10, 0.25);
+}
+
+.index-num {
+    font-weight: 700;
+    font-size: 1rem;
+}
+
+.aero-card h3 {
+    font-family: 'Anton', sans-serif;
+    font-size: 1.7rem;
+    letter-spacing: 0.5px;
+    margin-bottom: 0.8rem;
+}
+
+.aero-card p {
+    font-size: 0.95rem;
+    color: var(--gray);
+}
+
+.aero-card:hover p {
+    color: #1a1a1a;
+}
+
+/* 5. KOTAK SPESIFIKASI TEKNIS DI BAWAH KARTU */
+.card-spec {
+    margin-top: 2rem;
+    padding-top: 0.8rem;
+    border-top: 1px dashed var(--line);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--volt);
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.aero-card:hover .card-spec {
+    border-top-color: rgba(10, 10, 10, 0.3);
+    color: var(--bg-black);
+    font-weight: 700;
+}
+
+/* 6. TABEL TELEMETRI REAL-WORLD BENCHMARKS */
+.table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    border: 1px solid var(--line);
+}
+
+.telemetry-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    font-size: 0.9rem;
+}
+
+.telemetry-table th {
+    background-color: var(--bg-panel);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--gray);
+    padding: 1rem 1.2rem;
+    border-bottom: 1px solid var(--line);
+    letter-spacing: 1px;
+}
+
+.telemetry-table td {
+    padding: 1.1rem 1.2rem;
+    border-bottom: 1px solid var(--line);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.82rem;
+}
+
+.telemetry-table tr:last-child td {
+    border-bottom: none;
+}
+
+.telemetry-table tbody tr {
+    transition: background-color 0.2s ease;
+}
+
+.telemetry-table tbody tr:hover {
+    background-color: rgba(210, 255, 0, 0.08);
+}
+
+.car-name {
+    font-weight: 700;
+    color: var(--white);
+}
+
+/* 7. SIMULASI TELEMETRI & WIND TUNNEL */
+.telemetry-wrapper {
+    border: 1px solid var(--line);
+    background-color: var(--bg-panel);
+}
+
+.canvas-box {
+    position: relative;
+    border-bottom: 1px solid var(--line);
+    background-color: #070707;
+}
+
+.canvas-hud {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.75rem 1.2rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--gray);
+    border-bottom: 1px solid var(--line);
+}
+
+.hud-badge {
+    color: var(--volt);
+    font-weight: 700;
+}
+
+#aero3dContainer {
+    width: 100%;
+    height: 420px;
+    background-color: #07080b;
+    cursor: grab;
+    overflow: hidden;
+}
+
+#aero3dContainer:active {
+    cursor: grabbing;
+}
+
+/* Kontrol Input */
+.control-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1px;
+    background-color: var(--line);
+    border-bottom: 1px solid var(--line);
+}
+
+.control-item {
+    background-color: var(--bg-black);
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 0.8rem;
+}
+
+.control-item label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--gray);
+}
+
+.control-item select {
+    background-color: var(--bg-panel);
+    color: var(--white);
+    border: 1px solid var(--line);
+    padding: 0.75rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    outline: none;
+    cursor: pointer;
+}
+
+.control-item select:focus {
+    border-color: var(--volt);
+}
+
+.control-item input[type="range"] {
+    width: 100%;
+    accent-color: var(--volt);
+    cursor: pointer;
+}
+
+.btn-drs {
+    background-color: transparent;
+    color: var(--volt);
+    border: 1px solid var(--volt);
+    padding: 0.75rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.78rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-drs.active {
+    background-color: var(--volt);
+    color: var(--bg-black);
+}
+
+/* Output Readout Grid */
+.readout-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1px;
+    background-color: var(--line);
+}
+
+.readout-card {
+    background-color: var(--bg-black);
+    padding: 1.5rem;
+}
+
+.readout-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--gray);
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.readout-val {
+    font-family: 'Anton', sans-serif;
+    font-size: 2.2rem;
+    color: var(--white);
+    letter-spacing: 1px;
+}
+
+.readout-val.status-val {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 1rem;
+    color: var(--volt);
+    padding-top: 0.6rem;
+}
+
+/* Footer */
+.footer {
+    display: flex;
+    justify-content: space-between;
+    padding: 1.5rem 4%;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--gray);
+}
