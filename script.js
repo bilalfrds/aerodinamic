@@ -64,7 +64,7 @@ async function initAirShaper3DFileStudio() {
      },
         f1_car: {
             name: '05. MOBIL FORMULA 1',
-            modelUrl: '',
+            modelUrl: './aston_martin_f1_amr23_2023-v1-v2-compressed (1).glb',
             targetSize: 5.15, defaultRotY: -Math.PI / 2,
             cd: 0.720, cl: -2.45, area: 1.55, tailX: 2.55, airborne: false
         },
